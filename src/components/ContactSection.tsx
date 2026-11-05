@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Check, Copy, ArrowUpRight, MapPin, Globe, ShieldCheck } from 'lucide-react';
 import { MotionReveal } from './MotionReveal';
+import { MatrixRainCanvas } from './MatrixRainCanvas';
 
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -14,7 +15,10 @@ export const ContactSection: React.FC = () => {
 
   return (
     <section id="contact" className="relative py-24 sm:py-32 border-t border-white/10 bg-[#070b10] overflow-hidden">
-      {/* Background Glow */}
+      {/* Background Matrix Rain Digital Stream Animation */}
+      <MatrixRainCanvas opacity={0.3} />
+
+      {/* Background Radial Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[160px] pointer-events-none" />
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 relative z-10">

@@ -511,21 +511,21 @@ export const EducationCertifications: React.FC = () => {
         </div>
       </div>
 
-      {/* Full High-Resolution Lightbox Modal */}
+      {/* Refined Certificate Lightbox Modal (Reduced Size) */}
       {inspectedCredential && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 bg-black/85 backdrop-blur-md"
           onClick={() => setInspectedCredential(null)}
         >
           <div
-            className="border border-white/20 bg-[#0a0f16] max-w-4xl w-full p-4 sm:p-7 space-y-4 cross-corner shadow-2xl relative max-h-[95vh] overflow-y-auto"
+            className="border border-white/20 bg-[#090d14] max-w-lg sm:max-w-xl w-full p-4 sm:p-5 space-y-3 cross-corner shadow-2xl relative max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
-            <div className="flex items-start justify-between border-b border-white/10 pb-4">
+            <div className="flex items-start justify-between border-b border-white/10 pb-3">
               <div>
                 <span
-                  className="font-mono text-xs uppercase tracking-widest px-2.5 py-0.5 border"
+                  className="font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 border"
                   style={{
                     color: inspectedCredential.accentColor,
                     borderColor: `${inspectedCredential.accentColor}40`,
@@ -534,10 +534,10 @@ export const EducationCertifications: React.FC = () => {
                 >
                   {inspectedCredential.tag}
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-white mt-2">
+                <h3 className="text-base sm:text-lg font-bold text-white mt-1.5 leading-snug">
                   {inspectedCredential.title}
                 </h3>
-                <div className="text-xs font-mono text-neutral-400 mt-1">
+                <div className="text-[11px] font-mono text-neutral-400 mt-0.5">
                   {inspectedCredential.issuer} · {inspectedCredential.date}
                 </div>
               </div>
@@ -545,63 +545,63 @@ export const EducationCertifications: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setInspectedCredential(null)}
-                className="text-neutral-400 hover:text-white font-mono text-2xl p-1.5 cursor-pointer"
+                className="text-neutral-400 hover:text-white font-mono p-1 cursor-pointer transition-colors"
                 aria-label="Close certificate inspection"
               >
-                <X size={22} />
+                <X size={20} />
               </button>
             </div>
 
-            {/* High-Resolution Certificate Render */}
-            <div className="w-full bg-black/95 border border-white/10 p-2 sm:p-3 overflow-hidden flex items-center justify-center">
+            {/* Certificate Render (Comfortable Reduced Size) */}
+            <div className="w-full bg-black/90 border border-white/10 p-2 overflow-hidden flex items-center justify-center">
               <img
                 src={inspectedCredential.imageSrc}
                 alt={inspectedCredential.title}
-                className="max-h-[60vh] w-auto object-contain mx-auto shadow-2xl filter contrast-105"
+                className="max-h-[36vh] sm:max-h-[40vh] w-auto object-contain mx-auto shadow-xl filter contrast-105"
               />
             </div>
 
             {/* Credential Specification Strip */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 font-mono text-xs pt-2">
-              <div className="border border-white/10 bg-white/5 p-3 space-y-1">
-                <span className="text-neutral-500 text-[10px] uppercase block">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 font-mono text-xs pt-1">
+              <div className="border border-white/10 bg-white/5 p-2.5 space-y-0.5">
+                <span className="text-neutral-500 text-[9.5px] uppercase block">
                   ISSUING AUTHORITY
                 </span>
-                <span className="text-white font-semibold block">
+                <span className="text-white font-semibold text-xs block truncate">
                   {inspectedCredential.issuer}
                 </span>
                 {inspectedCredential.credentialId && (
-                  <span className="text-cyan-400 text-[11px] block truncate">
+                  <span className="text-cyan-400 text-[10.5px] block truncate">
                     ID: {inspectedCredential.credentialId}
                   </span>
                 )}
               </div>
 
-              <div className="border border-white/10 bg-white/5 p-3 space-y-1">
-                <span className="text-neutral-500 text-[10px] uppercase block">
+              <div className="border border-white/10 bg-white/5 p-2.5 space-y-0.5">
+                <span className="text-neutral-500 text-[9.5px] uppercase block">
                   ACCREDITATION STATUS
                 </span>
-                <span className="text-emerald-400 font-semibold block flex items-center gap-1.5">
-                  <CheckCircle2 size={13} />
-                  <span>OFFICIALLY VERIFIED & AWARDED</span>
+                <span className="text-emerald-400 font-semibold text-xs block flex items-center gap-1.5">
+                  <CheckCircle2 size={12} />
+                  <span>OFFICIALLY VERIFIED</span>
                 </span>
-                <span className="text-neutral-400 text-[11px] block">
+                <span className="text-neutral-400 text-[10.5px] block">
                   {inspectedCredential.date}
                 </span>
               </div>
             </div>
 
             {/* Description */}
-            <p className="text-neutral-300 text-sm leading-relaxed font-sans pt-1">
+            <p className="text-neutral-300 text-xs leading-relaxed font-sans pt-0.5">
               {inspectedCredential.description}
             </p>
 
             {/* Skills */}
-            <div className="flex flex-wrap gap-2 pt-2">
+            <div className="flex flex-wrap gap-1.5 pt-1">
               {inspectedCredential.skills.map((skill) => (
                 <span
                   key={skill}
-                  className="font-mono text-xs px-2.5 py-1 bg-white/5 border border-white/15 text-white"
+                  className="font-mono text-[10px] px-2 py-0.5 bg-white/5 border border-white/15 text-neutral-200"
                 >
                   {skill}
                 </span>
@@ -609,11 +609,11 @@ export const EducationCertifications: React.FC = () => {
             </div>
 
             {/* Close Button */}
-            <div className="pt-2">
+            <div className="pt-1">
               <button
                 type="button"
                 onClick={() => setInspectedCredential(null)}
-                className="w-full py-3 bg-white text-black font-semibold uppercase tracking-wider font-mono text-xs hover:bg-neutral-200 transition-colors cursor-pointer"
+                className="w-full py-2.5 bg-white text-black font-semibold uppercase tracking-wider font-mono text-xs hover:bg-neutral-200 transition-colors cursor-pointer"
               >
                 CLOSE CERTIFICATE VIEWER
               </button>

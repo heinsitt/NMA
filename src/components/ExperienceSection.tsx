@@ -57,17 +57,18 @@ export const ExperienceSection: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-                      System Engineer / NOC Engineer
+                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight flex items-center gap-2">
+                      <span>Former NOC Engineer</span>
+                      <CheckCircle2 size={16} className="text-cyan-400" />
                     </h3>
                     <div className="text-xs font-mono text-cyan-400 mt-0.5">
-                      BIM Group of Companies
+                      BIM Group of Companies · Network Operations Center
                     </div>
                   </div>
                 </div>
 
                 <span className="font-mono text-[10px] uppercase tracking-wider px-2.5 py-1 bg-cyan-950/60 border border-cyan-500/30 text-cyan-300">
-                  CURRENT / RECENT
+                  ENTERPRISE NOC
                 </span>
               </div>
 
