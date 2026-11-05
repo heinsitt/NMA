@@ -1,20 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
-  GraduationCap,
-  Award,
-  ShieldCheck,
-  ChevronLeft,
-  ChevronRight,
   Maximize2,
   X,
-  FileCheck,
-  Server,
-  Cloud,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
+  ShieldCheck,
+  ExternalLink,
+  Layers,
+  Sparkles,
 } from 'lucide-react';
 
 export interface RealCredential {
   id: string;
+  orderNumber: number;
   category: 'DEGREE' | 'CLOUD' | 'LINUX' | 'NETWORKING_VIRT';
   categoryLabel: string;
   title: string;
@@ -29,13 +28,15 @@ export interface RealCredential {
   description: string;
 }
 
-export const CREDENTIAL_RECORDS: RealCredential[] = [
+// All 12 verified credentials provided by Naing Moe Aung
+export const ALL_CREDENTIALS: RealCredential[] = [
   {
     id: 'sunderland-bsc',
+    orderNumber: 1,
     category: 'DEGREE',
     categoryLabel: 'Academic Degree',
     title: 'Bachelor of Science (First Class Honours)',
-    subtitle: 'Programme in Computer Science',
+    subtitle: 'Degree Programme in Computer Science',
     issuer: 'University of Sunderland',
     date: 'March 2026',
     credentialId: '68362933-01-5RNT · SmartVerify+ QR',
@@ -44,10 +45,11 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
     tag: 'FIRST CLASS HONOURS',
     skills: ['Computer Science', 'Distributed Systems', 'Software Engineering', 'System Kernels'],
     description:
-      'Awarded First Class Honours in Computer Science by University of Sunderland. Comprehensive curriculum covering software systems architecture, operating systems theory, algorithmics, and distributed networks.',
+      'Awarded First Class Honours in Computer Science by University of Sunderland. Comprehensive studies covering operating systems, algorithm design, software architecture, and distributed enterprise networks.',
   },
   {
     id: 'pearson-btec-hnd',
+    orderNumber: 2,
     category: 'DEGREE',
     categoryLabel: 'Higher National Diploma',
     title: 'Pearson BTEC Level 5 HND in Computing',
@@ -64,6 +66,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'aws-cloud-practitioner',
+    orderNumber: 3,
     category: 'CLOUD',
     categoryLabel: 'Cloud Architecture',
     title: 'AWS Certified Cloud Practitioner',
@@ -80,6 +83,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'kodekloud-aws-100days',
+    orderNumber: 4,
     category: 'CLOUD',
     categoryLabel: 'Cloud Architecture',
     title: '100 Days of Cloud (AWS)',
@@ -96,6 +100,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'kodekloud-azure-100days',
+    orderNumber: 5,
     category: 'CLOUD',
     categoryLabel: 'Cloud Architecture',
     title: '100 Days of Cloud (Azure)',
@@ -112,6 +117,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'docker-level1',
+    orderNumber: 6,
     category: 'CLOUD',
     categoryLabel: 'DevOps & Containers',
     title: 'Docker — Level 1 Topic Completion',
@@ -128,6 +134,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'linux-foundation-lfs101',
+    orderNumber: 7,
     category: 'LINUX',
     categoryLabel: 'Operating Systems',
     title: 'Introduction to Linux (LFS101)',
@@ -144,6 +151,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'bnn-linux-special',
+    orderNumber: 8,
     category: 'LINUX',
     categoryLabel: 'Operating Systems',
     title: 'Enterprise Linux Special Class',
@@ -160,6 +168,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'microsoft-server-admin',
+    orderNumber: 9,
     category: 'LINUX',
     categoryLabel: 'Enterprise Systems',
     title: 'Microsoft Server Administration',
@@ -176,6 +185,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'engenius-ecnp',
+    orderNumber: 10,
     category: 'NETWORKING_VIRT',
     categoryLabel: 'Networking',
     title: 'EnGenius Certified Network Professional (ECNP)',
@@ -192,6 +202,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'bim-vmware-admin',
+    orderNumber: 11,
     category: 'NETWORKING_VIRT',
     categoryLabel: 'Virtualization',
     title: 'VMware Administration (2 Months)',
@@ -208,6 +219,7 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
   {
     id: 'virtuozzo-foundations',
+    orderNumber: 12,
     category: 'NETWORKING_VIRT',
     categoryLabel: 'Virtualization',
     title: 'Virtuozzo Foundations for Sales & Technology',
@@ -224,33 +236,52 @@ export const CREDENTIAL_RECORDS: RealCredential[] = [
   },
 ];
 
-type FilterCategory = 'ALL' | 'DEGREE' | 'CLOUD' | 'LINUX' | 'NETWORKING_VIRT';
-
 export const EducationCertifications: React.FC = () => {
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
-  const [scrollRatio, setScrollRatio] = useState<number>(0);
-  const [activeFilter, setActiveFilter] = useState<FilterCategory>('ALL');
+  const [scrollProgress, setScrollProgress] = useState<number>(0);
   const [inspectedCredential, setInspectedCredential] = useState<RealCredential | null>(null);
+  const [maxTravelDistance, setMaxTravelDistance] = useState<number>(3600);
+
+  // Measure track dimensions dynamically for pixel-perfect translation
+  const updateMetrics = () => {
+    if (!trackRef.current) return;
+    const trackWidth = trackRef.current.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    // The total distance needed to slide all cards across the screen
+    const travel = Math.max(0, trackWidth - viewportWidth + 120);
+    setMaxTravelDistance(travel);
+  };
 
   useEffect(() => {
-    let animationFrameId: number;
+    updateMetrics();
+    window.addEventListener('resize', updateMetrics);
+    return () => window.removeEventListener('resize', updateMetrics);
+  }, []);
+
+  // Scroll listener tracking position through the pinned 320vh container
+  useEffect(() => {
+    let animFrame: number;
 
     const handleScroll = () => {
-      if (!sectionRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const totalScrollable = rect.height - window.innerHeight;
 
-      const totalScrollableDistance = rect.height + windowHeight;
-      const scrolled = windowHeight - rect.top;
-      const progress = Math.min(Math.max(scrolled / totalScrollableDistance, 0), 1);
+      if (totalScrollable <= 0) return;
 
-      setScrollRatio(progress);
+      // Scrolled distance inside the sticky container:
+      // When rect.top is 0 (container hits top of screen): progress = 0
+      // When rect.top is -totalScrollable (bottom of container reaches bottom of screen): progress = 1
+      const scrolled = -rect.top;
+      const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
+
+      setScrollProgress(progress);
     };
 
     const onScroll = () => {
-      cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(handleScroll);
+      cancelAnimationFrame(animFrame);
+      animFrame = requestAnimationFrame(handleScroll);
     };
 
     window.addEventListener('scroll', onScroll, { passive: true });
@@ -258,305 +289,222 @@ export const EducationCertifications: React.FC = () => {
 
     return () => {
       window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(animationFrameId);
+      cancelAnimationFrame(animFrame);
     };
   }, []);
 
-  // Filter items based on active tab
-  const displayedItems =
-    activeFilter === 'ALL'
-      ? CREDENTIAL_RECORDS
-      : CREDENTIAL_RECORDS.filter((c) => c.category === activeFilter);
-
-  // Compute horizontal scroll transform:
-  // As user scrolls DOWN: progress goes from 0 -> 1
-  // Cards smoothly slide horizontally from Left to Right!
-  // At progress = 0: translateX is negative (positioned to the left)
-  // At progress = 1: translateX slides positively to the right
-  // When scrolling UP: progress decreases, moving smoothly from Right to Left!
-  const translateXOffset = (scrollRatio - 0.5) * 620;
-
-  const handleManualScroll = (direction: 'left' | 'right') => {
-    if (!trackRef.current) return;
-    const scrollAmount = direction === 'left' ? -420 : 420;
-    trackRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-  };
+  // Compute smooth horizontal translation:
+  // When user scrolls DOWN vertically:
+  // progress goes from 0 -> 1.
+  // The cards smoothly slide horizontally from LEFT TO RIGHT!
+  // When user scrolls back UP:
+  // progress goes from 1 -> 0, reversing smoothly from RIGHT TO LEFT!
+  // At progress = 1, all cards have appeared, and then scrolling continues down to next session!
+  const currentTranslateX = -maxTravelDistance * (1 - scrollProgress) + 40 * scrollProgress;
 
   return (
-    <section
-      id="education"
-      ref={sectionRef}
-      className="relative py-24 sm:py-32 border-t border-white/10 bg-[#080808] overflow-hidden"
-    >
-      {/* Ambient Visual Backlight */}
-      <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-cyan-600/5 rounded-full blur-[160px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-amber-600/5 rounded-full blur-[140px] pointer-events-none" />
+    <section id="education" ref={containerRef} className="relative h-[340vh] bg-[#070b10]">
+      {/* Sticky Full-Viewport Container that locks while cards slide horizontally */}
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-6 sm:py-8 bg-[#070b10] border-t border-white/10 z-20">
+        {/* Subtle Ambient Backlighting */}
+        <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-cyan-600/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-amber-600/5 rounded-full blur-[140px] pointer-events-none" />
 
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-          <div>
-            <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
-              <span className="text-neutral-600">|</span>
-              <span className="text-white font-medium">[ 03 / 05 ]</span>
-              <span className="text-neutral-600">·</span>
-              <span className="text-cyan-400">VERIFIED ACADEMIC & TECHNICAL ACCREDITATIONS</span>
+        {/* Section Top Header & HUD */}
+        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 relative z-10 flex-shrink-0">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
+            <div>
+              <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-1">
+                <span className="text-neutral-600">|</span>
+                <span className="text-white font-medium">[ 03 / 05 ]</span>
+                <span className="text-neutral-600">·</span>
+                <span className="text-cyan-400">ACCREDITATIONS & CERTIFICATIONS</span>
+              </div>
+
+              <h2 className="font-bebas text-[clamp(2.5rem,5.5vw,4.8rem)] leading-[0.9] tracking-tight text-white select-none">
+                EDUCATION & CERTIFICATIONS
+              </h2>
+
+              <p className="text-neutral-400 text-xs sm:text-sm font-sans mt-1">
+                Scroll vertically to glide through all 12 verified degrees and certifications from Left to Right.
+              </p>
             </div>
 
-            <h2 className="font-bebas text-[clamp(3.2rem,8vw,7.5rem)] leading-[0.9] tracking-tight text-white select-none">
-              EDUCATION & CERTIFICATIONS
-            </h2>
-
-            <p className="text-neutral-400 text-sm sm:text-base max-w-2xl mt-4 font-sans leading-relaxed">
-              Official university degrees and industry credentials verified in production systems,
-              cloud engineering, and enterprise virtualization.
-              <span className="text-neutral-300 font-medium block mt-1">
-                ↓ Scroll down to slide cards from Left to Right · Scroll up to reverse from Right to Left.
-              </span>
-            </p>
-          </div>
-
-          {/* Dynamic Scroll HUD & Navigation Controls */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
-            {/* Scroll Trajectory Indicator */}
-            <div className="border border-white/15 bg-black/70 backdrop-blur-md px-5 py-3 font-mono text-xs uppercase tracking-wider space-y-1.5 min-w-[240px]">
-              <div className="flex justify-between items-center text-neutral-400">
-                <span>SCROLL TRAJECTORY</span>
-                <span className="text-cyan-300 font-semibold tabular-nums">
-                  {Math.round(scrollRatio * 100)}%
-                </span>
-              </div>
-              <div className="w-full bg-white/10 h-1.5 overflow-hidden">
-                <div
-                  className="bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-400 h-full transition-all duration-75"
-                  style={{ width: `${Math.round(scrollRatio * 100)}%` }}
-                />
-              </div>
-              <div className="flex justify-between text-[10px] text-neutral-500 pt-0.5">
-                <span>◄ LEFT (UP)</span>
-                <span className="text-white font-medium">REVERSE ACTIVE</span>
-                <span>RIGHT (DOWN) ►</span>
-              </div>
-            </div>
-
-            {/* Manual Nudge Buttons */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => handleManualScroll('left')}
-                className="w-11 h-11 border border-white/20 bg-black/80 hover:bg-white hover:text-black text-white flex items-center justify-center transition-all cursor-pointer"
-                aria-label="Scroll cards left"
-              >
-                <ChevronLeft size={18} />
-              </button>
-              <button
-                type="button"
-                onClick={() => handleManualScroll('right')}
-                className="w-11 h-11 border border-white/20 bg-black/80 hover:bg-white hover:text-black text-white flex items-center justify-center transition-all cursor-pointer"
-                aria-label="Scroll cards right"
-              >
-                <ChevronRight size={18} />
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Filter Chips Bar */}
-        <div className="flex flex-wrap items-center gap-2 mb-8 font-mono text-xs uppercase tracking-wider">
-          <button
-            type="button"
-            onClick={() => setActiveFilter('ALL')}
-            className={`px-3.5 py-1.5 border transition-all cursor-pointer ${
-              activeFilter === 'ALL'
-                ? 'bg-white text-black font-semibold border-white'
-                : 'border-white/15 text-neutral-400 hover:text-white hover:border-white/30 bg-black/40'
-            }`}
-          >
-            ALL ACCREDITATIONS ({CREDENTIAL_RECORDS.length})
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFilter('DEGREE')}
-            className={`px-3.5 py-1.5 border transition-all cursor-pointer ${
-              activeFilter === 'DEGREE'
-                ? 'bg-white text-black font-semibold border-white'
-                : 'border-white/15 text-neutral-400 hover:text-white hover:border-white/30 bg-black/40'
-            }`}
-          >
-            DEGREES & DIPLOMAS (2)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFilter('CLOUD')}
-            className={`px-3.5 py-1.5 border transition-all cursor-pointer ${
-              activeFilter === 'CLOUD'
-                ? 'bg-white text-black font-semibold border-white'
-                : 'border-white/15 text-neutral-400 hover:text-white hover:border-white/30 bg-black/40'
-            }`}
-          >
-            CLOUD & DEVOPS (4)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFilter('LINUX')}
-            className={`px-3.5 py-1.5 border transition-all cursor-pointer ${
-              activeFilter === 'LINUX'
-                ? 'bg-white text-black font-semibold border-white'
-                : 'border-white/15 text-neutral-400 hover:text-white hover:border-white/30 bg-black/40'
-            }`}
-          >
-            LINUX & SYSTEMS (3)
-          </button>
-          <button
-            type="button"
-            onClick={() => setActiveFilter('NETWORKING_VIRT')}
-            className={`px-3.5 py-1.5 border transition-all cursor-pointer ${
-              activeFilter === 'NETWORKING_VIRT'
-                ? 'bg-white text-black font-semibold border-white'
-                : 'border-white/15 text-neutral-400 hover:text-white hover:border-white/30 bg-black/40'
-            }`}
-          >
-            NETWORKING & VIRTUALIZATION (3)
-          </button>
-        </div>
-      </div>
-
-      {/* HORIZONTAL SLIDING CARD TRACK
-          Driven by vertical scroll position:
-          Smooth transform translateX moves from left to right as you scroll down */}
-      <div
-        ref={trackRef}
-        className="w-full overflow-x-auto no-scrollbar py-6 cursor-grab active:cursor-grabbing select-none"
-      >
-        <div
-          className="flex items-stretch gap-6 px-4 sm:px-8 w-max transition-transform duration-150 ease-out will-change-transform"
-          style={{
-            transform: `translateX(${translateXOffset}px)`,
-          }}
-        >
-          {displayedItems.map((item, index) => (
-            <div
-              key={item.id}
-              className="group relative w-[350px] sm:w-[420px] flex-shrink-0 border border-white/15 bg-[#0d121a]/95 backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between cross-corner shadow-2xl hover:border-white/50 transition-all duration-300"
-              style={{
-                boxShadow: '0 8px 32px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.4)',
-              }}
-            >
-              {/* Top Glowing Header Accent Bar */}
-              <div
-                className="absolute top-0 left-0 right-0 h-[3px] opacity-70 group-hover:opacity-100 transition-opacity"
-                style={{ backgroundColor: item.accentColor }}
-              />
-
-              <div>
-                {/* Category Badge & Serial */}
-                <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-wider mb-4">
-                  <span
-                    className="px-2.5 py-1 font-semibold border"
-                    style={{
-                      color: item.accentColor,
-                      borderColor: `${item.accentColor}40`,
-                      backgroundColor: `${item.accentColor}10`,
-                    }}
-                  >
-                    {item.tag}
-                  </span>
-                  <span className="text-neutral-500">
-                    [ {String(index + 1).padStart(2, '0')} / {String(displayedItems.length).padStart(2, '0')} ]
+            {/* Scroll Progress Meter HUD */}
+            <div className="flex items-center gap-4">
+              <div className="border border-white/15 bg-black/80 px-4 py-2 font-mono text-xs uppercase tracking-wider space-y-1 min-w-[210px]">
+                <div className="flex justify-between items-center text-neutral-400 text-[11px]">
+                  <span>HORIZONTAL MOTION</span>
+                  <span className="text-cyan-300 font-semibold tabular-nums">
+                    {Math.round(scrollProgress * 100)}%
                   </span>
                 </div>
-
-                {/* Header Title & Issuer */}
-                <div className="space-y-1 mb-5">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight leading-snug group-hover:text-cyan-200 transition-colors">
-                    {item.title}
-                  </h3>
-                  <div className="font-mono text-xs text-neutral-400">
-                    {item.subtitle}
-                  </div>
-                  <div className="text-xs text-cyan-400 font-mono pt-1 font-medium">
-                    {item.issuer}
-                  </div>
-                </div>
-
-                {/* Real Certificate Image Container with Preview Interaction */}
-                <div
-                  onClick={() => setInspectedCredential(item)}
-                  className="relative aspect-[16/11] w-full rounded-none border border-white/20 bg-black overflow-hidden mb-5 group/image cursor-pointer shadow-lg"
-                >
-                  <img
-                    src={item.imageSrc}
-                    alt={`${item.title} — ${item.issuer}`}
-                    className="w-full h-full object-contain p-1 filter contrast-105 group-hover/image:scale-105 transition-transform duration-500"
-                    loading="lazy"
+                <div className="w-full bg-white/10 h-1 overflow-hidden">
+                  <div
+                    className="bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-400 h-full transition-all duration-75"
+                    style={{ width: `${Math.round(scrollProgress * 100)}%` }}
                   />
-                  {/* Subtle Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-
-                  {/* Hover Inspect Overlay */}
-                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover/image:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold uppercase tracking-wider backdrop-blur-[2px]">
-                    <Maximize2 size={16} />
-                    <span>EXPAND CERTIFICATE</span>
-                  </div>
-
-                  {/* Corner Verification Stamp */}
-                  <div className="absolute top-2 right-2 px-2 py-0.5 bg-black/80 border border-white/20 font-mono text-[9px] text-emerald-400 uppercase tracking-widest flex items-center gap-1">
-                    <CheckCircle2 size={10} />
-                    <span>VERIFIED</span>
-                  </div>
                 </div>
-
-                {/* Description */}
-                <p className="text-neutral-300 text-xs sm:text-sm font-sans leading-relaxed mb-5">
-                  {item.description}
-                </p>
-
-                {/* Skills Cloud */}
-                <div className="flex flex-wrap gap-1.5 pt-3 border-t border-white/10">
-                  {item.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-white/5 text-neutral-300 border border-white/10"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                <div className="flex justify-between text-[10px] text-neutral-500">
+                  <span>LEFT ◄ (UP)</span>
+                  <span className="text-white">SLIDING</span>
+                  <span>(DOWN) ► RIGHT</span>
                 </div>
-              </div>
-
-              {/* Bottom Metadata & Expand Action */}
-              <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between font-mono text-xs">
-                <span className="text-neutral-500 truncate max-w-[200px]">
-                  {item.date}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setInspectedCredential(item)}
-                  className="text-white hover:text-cyan-300 flex items-center gap-1.5 font-semibold transition-colors cursor-pointer"
-                >
-                  <span>VIEW CERT</span>
-                  <Maximize2 size={12} />
-                </button>
               </div>
             </div>
-          ))}
+          </div>
+        </div>
+
+        {/* HORIZONTAL CARDS STREAM (Smooth 60fps Scroll-Driven Slide from Left to Right) */}
+        <div className="w-full overflow-hidden my-auto py-2 relative flex-1 flex items-center">
+          {/* Subtle edge vignette fades */}
+          <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-r from-[#070b10] to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-28 bg-gradient-to-l from-[#070b10] to-transparent z-10 pointer-events-none" />
+
+          <div
+            ref={trackRef}
+            className="flex items-stretch gap-6 px-6 sm:px-12 w-max will-change-transform transition-transform duration-100 ease-out select-none"
+            style={{
+              transform: `translateX(${currentTranslateX}px)`,
+            }}
+          >
+            {/* Cards arranged in reverse order so that as track slides Left-to-Right,
+                Degree 01 (University of Sunderland) starts on screen, followed by Pearson BTEC,
+                AWS, KodeKloud, Docker, Linux Foundation, VMware, etc.! */}
+            {[...ALL_CREDENTIALS].reverse().map((item) => (
+              <div
+                key={item.id}
+                className="group relative w-[340px] sm:w-[400px] flex-shrink-0 border border-white/15 bg-[#0d121a]/95 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between cross-corner shadow-2xl hover:border-white/50 transition-all duration-300"
+                style={{
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,0,0,0.4)',
+                }}
+              >
+                {/* Top Glowing Header Accent Bar */}
+                <div
+                  className="absolute top-0 left-0 right-0 h-[3px] opacity-70 group-hover:opacity-100 transition-opacity"
+                  style={{ backgroundColor: item.accentColor }}
+                />
+
+                <div>
+                  {/* Category Badge & Numeric Index */}
+                  <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-wider mb-3">
+                    <span
+                      className="px-2.5 py-0.5 font-semibold border"
+                      style={{
+                        color: item.accentColor,
+                        borderColor: `${item.accentColor}40`,
+                        backgroundColor: `${item.accentColor}10`,
+                      }}
+                    >
+                      {item.tag}
+                    </span>
+                    <span className="text-neutral-500 font-mono">
+                      [ {String(item.orderNumber).padStart(2, '0')} / 12 ]
+                    </span>
+                  </div>
+
+                  {/* Header Title & Issuer */}
+                  <div className="space-y-0.5 mb-3">
+                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight leading-snug group-hover:text-cyan-200 transition-colors line-clamp-2">
+                      {item.title}
+                    </h3>
+                    <div className="font-mono text-[11px] text-neutral-400 truncate">
+                      {item.subtitle}
+                    </div>
+                    <div className="text-[11px] text-cyan-400 font-mono font-medium truncate">
+                      {item.issuer}
+                    </div>
+                  </div>
+
+                  {/* Real Certificate Image with Lightbox Zoom Trigger */}
+                  <div
+                    onClick={() => setInspectedCredential(item)}
+                    className="relative aspect-[16/10] w-full rounded-none border border-white/20 bg-black overflow-hidden mb-3 group/image cursor-pointer shadow-lg"
+                  >
+                    <img
+                      src={item.imageSrc}
+                      alt={`${item.title} — ${item.issuer}`}
+                      className="w-full h-full object-contain p-1 filter contrast-105 group-hover/image:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+
+                    {/* Hover Inspect Overlay */}
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/image:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-mono text-xs font-semibold uppercase tracking-wider backdrop-blur-[2px]">
+                      <Maximize2 size={15} />
+                      <span>CLICK TO EXPAND</span>
+                    </div>
+
+                    {/* Corner Verification Badge */}
+                    <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/85 border border-white/20 font-mono text-[9px] text-emerald-400 uppercase tracking-widest flex items-center gap-1">
+                      <CheckCircle2 size={10} />
+                      <span>VERIFIED</span>
+                    </div>
+                  </div>
+
+                  {/* Description */}
+                  <p className="text-neutral-300 text-xs font-sans leading-relaxed line-clamp-2 mb-3">
+                    {item.description}
+                  </p>
+
+                  {/* Skills Cloud */}
+                  <div className="flex flex-wrap gap-1 pt-2 border-t border-white/10">
+                    {item.skills.slice(0, 3).map((skill) => (
+                      <span
+                        key={skill}
+                        className="font-mono text-[9.5px] uppercase tracking-wider px-2 py-0.5 bg-white/5 text-neutral-300 border border-white/10 truncate"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                    {item.skills.length > 3 && (
+                      <span className="font-mono text-[9.5px] uppercase tracking-wider px-1.5 py-0.5 text-neutral-500">
+                        +{item.skills.length - 3} more
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                {/* Bottom Metadata & View Action */}
+                <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between font-mono text-[11px]">
+                  <span className="text-neutral-500 truncate max-w-[180px]">
+                    {item.date}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setInspectedCredential(item)}
+                    className="text-white hover:text-cyan-300 flex items-center gap-1 font-semibold transition-colors cursor-pointer"
+                  >
+                    <span>INSPECT</span>
+                    <Maximize2 size={11} />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Section Bottom Guidance Bar */}
+        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 relative z-10 flex-shrink-0">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 font-mono text-xs text-neutral-500 uppercase tracking-wider border-t border-white/10 pt-3">
+            <div className="flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              <span>
+                {scrollProgress < 0.98
+                  ? 'SCROLL DOWN TO REVEAL ALL CARDS FROM LEFT TO RIGHT'
+                  : 'ALL 12 CARDS REVEALED — SCROLL DOWN TO ENTER EXPERIENCE SECTION ↓'}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <span className="text-white font-medium">TOTAL 12 CREDENTIALS</span>
+              <span>·</span>
+              <span>DEGREES & INDUSTRY ACCREDITATIONS</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Bottom Track Summary Bar */}
-      <div className="max-w-[1440px] mx-auto px-4 sm:px-8 mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 font-mono text-xs text-neutral-500 uppercase tracking-wider">
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-          <span>REVERSE-DIRECTION SCROLL ENGINE ACTIVE · 60FPS SYNCHRONIZATION</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <span>TOTAL CREDENTIALS: {CREDENTIAL_RECORDS.length}</span>
-          <span>·</span>
-          <span>UNIVERSITY OF SUNDERLAND · PEARSON BTEC · LINUX FOUNDATION · AWS · KODEKLOUD</span>
-        </div>
-      </div>
-
-      {/* High-Resolution Certificate Lightbox Modal */}
+      {/* Full High-Resolution Lightbox Modal */}
       {inspectedCredential && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl"
@@ -598,7 +546,7 @@ export const EducationCertifications: React.FC = () => {
             </div>
 
             {/* High-Resolution Certificate Render */}
-            <div className="w-full bg-black/90 border border-white/10 p-2 sm:p-3 overflow-hidden flex items-center justify-center">
+            <div className="w-full bg-black/95 border border-white/10 p-2 sm:p-3 overflow-hidden flex items-center justify-center">
               <img
                 src={inspectedCredential.imageSrc}
                 alt={inspectedCredential.title}

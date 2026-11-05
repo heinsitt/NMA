@@ -62,17 +62,17 @@ export const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Bottom Giant Name Marquee (Inspired by christendijoux.com) */}
-        <div className="pt-12 select-none border-t border-white/10 mt-8">
-          <div className="w-full overflow-hidden">
-            <h2 className="font-syne font-extrabold uppercase tracking-tighter text-[clamp(2.75rem,8.2vw,8.5rem)] leading-none text-white whitespace-nowrap text-center opacity-95">
+        {/* Bottom Giant Name Banner */}
+        <div className="pt-10 select-none border-t border-white/10 mt-8">
+          <div className="w-full flex items-center justify-center overflow-visible px-2 sm:px-4">
+            <h2 className="font-syne font-extrabold uppercase tracking-tight text-[clamp(1.75rem,5.5vw,5.6rem)] leading-tight text-white whitespace-nowrap text-center opacity-95 hover:text-cyan-300 transition-colors duration-300">
               NAING MOE AUNG
             </h2>
           </div>
 
-          <div className="flex items-center justify-between text-[11px] font-mono uppercase text-neutral-500 pt-3 tracking-widest">
+          <div className="flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono uppercase text-neutral-500 pt-3 tracking-widest gap-2">
             <span>SYSTEM ENGINEER & ASPIRING CLOUD ARCHITECT — 2026</span>
-            <span className="hidden sm:inline">99.99% UPTIME MINDSET</span>
+            <span>99.99% UPTIME MINDSET</span>
           </div>
         </div>
       </div>

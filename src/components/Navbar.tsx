@@ -16,7 +16,7 @@ export const Navbar: React.FC = () => {
         </a>
 
         {/* Center Nav Links & Emblem */}
-        <nav className="hidden md:flex items-center gap-7 text-neutral-400">
+        <nav className="hidden md:flex items-center gap-6 text-neutral-400">
           <a
             href="#about"
             className="hover:text-white transition-colors flex items-center gap-1.5 group"
@@ -47,10 +47,18 @@ export const Navbar: React.FC = () => {
           </a>
 
           <a
-            href="#contact"
+            href="#experience"
             className="hover:text-white transition-colors flex items-center gap-1.5 group"
           >
             <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400">04</span>
+            <span>EXPERIENCE</span>
+          </a>
+
+          <a
+            href="#contact"
+            className="hover:text-white transition-colors flex items-center gap-1.5 group"
+          >
+            <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400">05</span>
             <span>CONTACT</span>
           </a>
         </nav>
@@ -101,11 +109,18 @@ export const Navbar: React.FC = () => {
             03 EDUCATION & CERTS
           </a>
           <a
+            href="#experience"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 text-neutral-300 border-b border-white/5"
+          >
+            04 CAREER & NOC OPERATIONS
+          </a>
+          <a
             href="#contact"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-neutral-300"
           >
-            04 CONTACT
+            05 CONTACT
           </a>
         </div>
       )}
