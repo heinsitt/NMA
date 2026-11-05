@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Mail, Check, Copy, ArrowUpRight, MapPin, Globe, ShieldCheck } from 'lucide-react';
+import { MotionReveal } from './MotionReveal';
 
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -18,7 +19,7 @@ export const ContactSection: React.FC = () => {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 relative z-10">
         {/* Section Header */}
-        <div className="mb-16">
+        <MotionReveal className="mb-16">
           <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
             <span className="text-neutral-600">|</span>
             <span className="text-white font-medium">[ 05 / 05 ]</span>
@@ -34,12 +35,13 @@ export const ContactSection: React.FC = () => {
             Open to System Engineering, Cloud Infrastructure, and DevOps opportunities.
             Feel free to reach out directly via email or LinkedIn.
           </p>
-        </div>
+        </MotionReveal>
 
         {/* Contact Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Left Column: Direct Communication Card */}
-          <div className="lg:col-span-7 border border-white/15 bg-black/80 backdrop-blur-md p-6 sm:p-10 cross-corner shadow-2xl space-y-8">
+          <MotionReveal className="lg:col-span-7" delay={0.1}>
+            <div className="border border-white/15 bg-black/80 backdrop-blur-md p-6 sm:p-10 cross-corner shadow-2xl space-y-8">
             <div>
               <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest block mb-2">
                 PRIMARY EMAIL INBOX
@@ -126,9 +128,11 @@ export const ContactSection: React.FC = () => {
               </div>
             </div>
           </div>
+        </MotionReveal>
 
-          {/* Right Column: Location & Operational Specification */}
-          <div className="lg:col-span-5 border border-white/15 bg-black/90 p-6 sm:p-8 cross-corner shadow-2xl space-y-6 font-mono text-xs uppercase tracking-wider">
+        {/* Right Column: Location & Operational Specification */}
+        <MotionReveal className="lg:col-span-5" delay={0.2}>
+          <div className="border border-white/15 bg-black/90 p-6 sm:p-8 cross-corner shadow-2xl space-y-6 font-mono text-xs uppercase tracking-wider">
             <div className="text-neutral-500 text-[11px] pb-2 border-b border-white/10 font-bold">
               ENGINEERING DISPATCH SPECIFICATION
             </div>
@@ -172,8 +176,9 @@ export const ContactSection: React.FC = () => {
               </a>
             </div>
           </div>
-        </div>
+        </MotionReveal>
       </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 };

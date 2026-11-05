@@ -13,6 +13,7 @@ import {
   TerraformIcon,
   GrafanaIcon,
 } from './TechIcons';
+import { MotionReveal } from './MotionReveal';
 
 interface ToolItem {
   id: string;
@@ -168,7 +169,7 @@ export const TechStackTools: React.FC = () => {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <MotionReveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
               <span className="text-neutral-600">|</span>
@@ -205,7 +206,7 @@ export const TechStackTools: React.FC = () => {
               <span className="text-cyan-300">ALTERNATING ROWS</span>
             </div>
           </div>
-        </div>
+        </MotionReveal>
       </div>
 
       {/* Marquee Row 1: Leftward Auto-Scroll */}

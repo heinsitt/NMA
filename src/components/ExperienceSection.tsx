@@ -1,5 +1,6 @@
 import React from 'react';
 import { Server, ShieldCheck, Radio, CheckCircle2, Building2, ArrowUpRight } from 'lucide-react';
+import { MotionReveal } from './MotionReveal';
 
 export const ExperienceSection: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ export const ExperienceSection: React.FC = () => {
 
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8 relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <MotionReveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
             <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
               <span className="text-neutral-600">|</span>
@@ -37,12 +38,13 @@ export const ExperienceSection: React.FC = () => {
               <span className="text-white font-medium">NOC & CLOUD SYSTEMS</span>
             </div>
           </div>
-        </div>
+        </MotionReveal>
 
         {/* Experience Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Card 1: BIM Group of Companies */}
-          <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-cyan-400/50 transition-all duration-300">
+          <MotionReveal delay={0.1}>
+            <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-cyan-400/50 transition-all duration-300 h-full">
             <div>
               {/* Card Header */}
               <div className="flex items-start justify-between gap-4 mb-6">
@@ -103,9 +105,11 @@ export const ExperienceSection: React.FC = () => {
               <span className="text-neutral-500">YANGON, MYANMAR</span>
             </div>
           </div>
+        </MotionReveal>
 
-          {/* Card 2: WaveMoney */}
-          <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-amber-400/50 transition-all duration-300">
+        {/* Card 2: WaveMoney */}
+        <MotionReveal delay={0.2}>
+          <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-amber-400/50 transition-all duration-300 h-full">
             <div>
               {/* Card Header */}
               <div className="flex items-start justify-between gap-4 mb-6">
@@ -161,7 +165,8 @@ export const ExperienceSection: React.FC = () => {
               <span className="text-neutral-500">FINANCIAL NETWORK</span>
             </div>
           </div>
-        </div>
+        </MotionReveal>
+      </div>
       </div>
     </section>
   );

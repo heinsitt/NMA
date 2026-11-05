@@ -1,26 +1,29 @@
 import React from 'react';
+import { MotionReveal } from './MotionReveal';
 
 export const About: React.FC = () => {
   return (
-    <section id="about" className="relative py-24 sm:py-32 border-t border-white/10 bg-[#070707]">
+    <section id="about" className="relative py-24 sm:py-32 border-t border-white/10 bg-[#070707] overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
-        {/* Section Kicker */}
-        <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
-          <span className="text-neutral-600">|</span>
-          <span className="text-white font-medium">[ 01 / 04 ]</span>
-          <span className="text-neutral-600">·</span>
-          <span>ABOUT</span>
-        </div>
+        <MotionReveal>
+          {/* Section Kicker */}
+          <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
+            <span className="text-neutral-600">|</span>
+            <span className="text-white font-medium">[ 01 / 05 ]</span>
+            <span className="text-neutral-600">·</span>
+            <span>ABOUT</span>
+          </div>
 
-        {/* Giant Section Headline */}
-        <h2 className="font-bebas text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.9] tracking-tight text-white mb-16 select-none">
-          FROM NETWORKING TO CLOUD OPERATIONS
-        </h2>
+          {/* Giant Section Headline */}
+          <h2 className="font-bebas text-[clamp(3.5rem,8vw,7.5rem)] leading-[0.9] tracking-tight text-white mb-16 select-none">
+            FROM NETWORKING TO CLOUD OPERATIONS
+          </h2>
+        </MotionReveal>
 
         {/* Two-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left Column: Narrative */}
-          <div className="lg:col-span-7 space-y-8 font-sans">
+          <MotionReveal className="lg:col-span-7 space-y-8 font-sans" delay={0.1}>
             <p className="text-xl sm:text-2xl lg:text-3xl font-medium text-neutral-100 leading-snug font-sans tracking-tight">
               System Engineer at <span className="text-white font-semibold">BIM Group of Companies</span>, I design, maintain, and automate mission-critical infrastructure end to end: enterprise Linux & Windows servers, virtualization clusters, and network security. Reliability is how I operate: an internal infrastructure deserves the same care as an award-winning product.
             </p>
@@ -54,10 +57,10 @@ export const About: React.FC = () => {
                 <span>AWS, Azure, Terraform</span>
               </div>
             </div>
-          </div>
+          </MotionReveal>
 
           {/* Right Column: Photo + Technical Dossier Card */}
-          <div className="lg:col-span-5 space-y-8">
+          <MotionReveal className="lg:col-span-5 space-y-8" delay={0.2}>
             {/* User Profile Photo with Crosshairs */}
             <div className="relative border border-white/15 bg-black p-3 cross-corner shadow-2xl">
               <div className="aspect-[3/4] w-full overflow-hidden bg-neutral-900 relative">
@@ -131,7 +134,7 @@ export const About: React.FC = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </MotionReveal>
         </div>
       </div>
     </section>

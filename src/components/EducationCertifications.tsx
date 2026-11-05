@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import {
   Maximize2,
   X,
@@ -311,7 +312,13 @@ export const EducationCertifications: React.FC = () => {
         <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-amber-600/5 rounded-full blur-[140px] pointer-events-none" />
 
         {/* Section Top Header & HUD */}
-        <div className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 relative z-10 flex-shrink-0">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-[1440px] w-full mx-auto px-4 sm:px-8 relative z-10 flex-shrink-0"
+        >
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-white/10 pb-4">
             <div>
               <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-1">
@@ -353,7 +360,7 @@ export const EducationCertifications: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* HORIZONTAL CARDS STREAM (Smooth 60fps Scroll-Driven Slide from Left to Right) */}
         <div className="w-full overflow-hidden my-auto py-2 relative flex-1 flex items-center">
