@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 export const Navbar: React.FC = () => {
-  const [lang, setLang] = useState<'EN' | 'MM'>('EN');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
@@ -10,13 +9,14 @@ export const Navbar: React.FC = () => {
         {/* Brand Left */}
         <a
           href="#top"
-          className="text-white hover:text-neutral-300 font-semibold tracking-widest text-sm flex items-center gap-1.5 uppercase"
+          className="text-white hover:text-neutral-300 font-semibold tracking-widest text-sm flex items-center gap-2 uppercase group"
         >
+          <span className="w-2 h-2 rounded-full bg-cyan-400 group-hover:scale-125 transition-transform" />
           <span>NAING.MOE.AUNG</span>
         </a>
 
         {/* Center Nav Links & Emblem */}
-        <nav className="hidden md:flex items-center gap-8 text-neutral-400">
+        <nav className="hidden md:flex items-center gap-7 text-neutral-400">
           <a
             href="#about"
             className="hover:text-white transition-colors flex items-center gap-1.5 group"
@@ -26,11 +26,11 @@ export const Navbar: React.FC = () => {
           </a>
 
           <a
-            href="#experience"
+            href="#tools"
             className="hover:text-white transition-colors flex items-center gap-1.5 group"
           >
             <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400">02</span>
-            <span>EXPERIENCE</span>
+            <span>TECH STACK</span>
           </a>
 
           {/* Center Framed Emblem */}
@@ -39,11 +39,11 @@ export const Navbar: React.FC = () => {
           </div>
 
           <a
-            href="#projects"
+            href="#education"
             className="hover:text-white transition-colors flex items-center gap-1.5 group"
           >
             <span className="text-[10px] text-neutral-600 group-hover:text-neutral-400">03</span>
-            <span>LABS</span>
+            <span>EDUCATION & CERTS</span>
           </a>
 
           <a
@@ -55,33 +55,15 @@ export const Navbar: React.FC = () => {
           </a>
         </nav>
 
-        {/* Language Switcher & Mobile Trigger */}
+        {/* Action Button & Mobile Trigger */}
         <div className="flex items-center gap-4">
-          <div className="flex items-center border border-white/15 text-[11px] overflow-hidden">
-            <button
-              type="button"
-              onClick={() => setLang('MM')}
-              className={`px-2.5 py-1 transition-colors ${
-                lang === 'MM'
-                  ? 'bg-white text-black font-semibold'
-                  : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              MM
-            </button>
-            <span className="w-[1px] h-3 bg-white/10" />
-            <button
-              type="button"
-              onClick={() => setLang('EN')}
-              className={`px-2.5 py-1 transition-colors ${
-                lang === 'EN'
-                  ? 'bg-white text-black font-semibold'
-                  : 'text-neutral-400 hover:text-white'
-              }`}
-            >
-              EN
-            </button>
-          </div>
+          <a
+            href="#contact"
+            className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 border border-white/20 hover:border-white hover:bg-white/5 text-white transition-all uppercase tracking-wider text-[11px]"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span>CONNECT</span>
+          </a>
 
           <button
             type="button"
@@ -105,18 +87,18 @@ export const Navbar: React.FC = () => {
             01 ABOUT
           </a>
           <a
-            href="#experience"
+            href="#tools"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-neutral-300 border-b border-white/5"
           >
-            02 EXPERIENCE
+            02 TECH STACK & TOOLS
           </a>
           <a
-            href="#projects"
+            href="#education"
             onClick={() => setMobileMenuOpen(false)}
             className="block py-2 text-neutral-300 border-b border-white/5"
           >
-            03 LABS & PROJECTS
+            03 EDUCATION & CERTS
           </a>
           <a
             href="#contact"

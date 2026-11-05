@@ -4,6 +4,8 @@ import { Navbar } from './components/Navbar';
 import { SubHeaderBar } from './components/SubHeaderBar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
+import { TechStackTools } from './components/TechStackTools';
+import { EducationCertifications } from './components/EducationCertifications';
 
 export const App: React.FC = () => {
   return (
@@ -11,34 +13,41 @@ export const App: React.FC = () => {
       {/* Interactive Dotted Matrix Background */}
       <DottedMatrixCanvas />
 
-      {/* Session 1: Navigation Bar & Info Ticker */}
+      {/* Navigation Bar & Info Ticker */}
       <Navbar />
       <SubHeaderBar />
 
-      {/* Session 1: Hero Section */}
+      {/* Main Portfolio Sections */}
       <main className="relative z-10">
         <Hero />
 
-        {/* Session 2: About Section */}
+        {/* 01: About Section */}
         <About />
 
-        {/* Next Sessions Preview Banner */}
+        {/* 02: Tech Stack & Tools Section (Continuous alternating marquees) */}
+        <TechStackTools />
+
+        {/* 03: Education & Certifications Section (Scroll-driven bidirectional slide) */}
+        <EducationCertifications />
+
+        {/* Career & Labs Status Section */}
         <section id="projects" className="border-t border-white/10 py-16 bg-[#090909]">
           <div className="max-w-[1440px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 font-mono text-xs uppercase tracking-wider text-neutral-400">
             <div>
               <div className="flex items-center gap-2 text-white font-semibold text-sm mb-1">
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                <span>SESSION 1 & 2 COMPLETED</span>
+                <span>NOC & CLOUD INFRASTRUCTURE</span>
               </div>
-              <span>Ready for Session 3 (Skills & Tools) and Session 4 (Experience & WaveMoney NOC Timeline)</span>
+              <span>BIM Group of Companies · WaveMoney Network Operations · AWS & Azure Labs</span>
             </div>
 
             <div className="flex items-center gap-4">
               <a
                 href="mailto:naingmoeaung51@gmail.com"
-                className="px-5 py-3 bg-white text-black font-semibold hover:bg-neutral-200 transition-all"
+                className="px-5 py-3 bg-white text-black font-semibold hover:bg-neutral-200 transition-all flex items-center gap-2"
               >
-                CONTACT NAING MOE AUNG →
+                <span>CONTACT NAING MOE AUNG</span>
+                <span>→</span>
               </a>
             </div>
           </div>
