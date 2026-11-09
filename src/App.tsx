@@ -9,10 +9,14 @@ import { EducationCertifications } from './components/EducationCertifications';
 import { ProjectsSection } from './components/ProjectsSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { ContactSection } from './components/ContactSection';
+import { CustomCursor } from './components/CustomCursor';
 
 export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#060606] text-white selection:bg-white selection:text-black relative">
+      {/* Precision Telemetry Custom Cursor */}
+      <CustomCursor />
+
       {/* Interactive Dotted Matrix Background */}
       <DottedMatrixCanvas />
 

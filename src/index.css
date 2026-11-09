@@ -133,3 +133,11 @@ a, button {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Custom Cursor: Hide native mouse cursor on desktop/trackpad devices */
+@media (hover: hover) and (pointer: fine) {
+  body, a, button, input, textarea, select, [role="button"], label, div, span, p, h1, h2, h3, h4, h5, h6, img, svg {
+    cursor: none !important;
+  }
+}
+
