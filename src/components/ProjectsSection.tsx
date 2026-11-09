@@ -80,7 +80,7 @@ export const ProjectsSection: React.FC = () => {
   }, [charIndex, isDeleting, messageIndex]);
 
   return (
-    <section id="projects" className="relative py-24 sm:py-32 border-t border-white/10 bg-[#05070a] overflow-hidden">
+    <section id="projects" className="relative py-24 sm:py-32 bg-[#05070a] overflow-hidden">
       {/* Subtle Background Glows */}
       <div className="absolute top-1/3 left-1/4 -translate-y-1/2 w-[550px] h-[550px] bg-cyan-600/5 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-10 right-1/4 w-[450px] h-[450px] bg-emerald-600/5 rounded-full blur-[140px] pointer-events-none" />

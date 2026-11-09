@@ -14,7 +14,7 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="relative py-24 sm:py-32 border-t border-white/10 bg-[#070b10] overflow-hidden">
+    <section id="contact" className="relative py-24 sm:py-32 bg-[#070b10] overflow-hidden">
       {/* Background Matrix Rain Digital Stream Animation */}
       <MatrixRainCanvas opacity={0.3} />
 

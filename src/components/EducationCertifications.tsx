@@ -306,7 +306,7 @@ export const EducationCertifications: React.FC = () => {
   return (
     <section id="education" ref={containerRef} className="relative h-[340vh] bg-[#070b10]">
       {/* Sticky Full-Viewport Container that locks while cards slide horizontally */}
-      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-6 sm:py-8 bg-[#070b10] border-t border-white/10 z-20">
+      <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-between py-6 sm:py-8 bg-[#070b10] z-20">
         {/* Subtle Ambient Backlighting */}
         <div className="absolute top-1/4 left-1/3 w-[550px] h-[550px] bg-cyan-600/5 rounded-full blur-[150px] pointer-events-none" />
         <div className="absolute bottom-10 right-1/4 w-[500px] h-[500px] bg-amber-600/5 rounded-full blur-[140px] pointer-events-none" />

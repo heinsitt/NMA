@@ -3,7 +3,7 @@ import { MotionReveal } from './MotionReveal';
 
 export const About: React.FC = () => {
   return (
-    <section id="about" className="relative py-24 sm:py-32 border-t border-white/10 bg-[#070707] overflow-hidden">
+    <section id="about" className="relative py-24 sm:py-32 bg-[#070707] overflow-hidden">
       <div className="max-w-[1440px] mx-auto px-4 sm:px-8">
         <MotionReveal>
           {/* Section Kicker */}
