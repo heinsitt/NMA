@@ -318,3 +318,90 @@ export const GrafanaIcon: React.FC<IconProps> = ({ className = 'w-10 h-10', size
     </g>
   </svg>
 );
+
+// 13. Veeam Backup & Replication
+export const VeeamIcon: React.FC<IconProps> = ({ className = 'w-10 h-10', size }) => (
+  <svg
+    viewBox="0 0 256 256"
+    className={className}
+    style={size ? { width: size, height: size } : undefined}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="256" height="256" rx="36" fill="#061F12" />
+    <g transform="translate(40, 48) scale(0.69)">
+      {/* Veeam Iconic Interlocking Green Geometric V Elements */}
+      <path
+        d="M28 20h42l58 132L186 20h42l-78 178c-4 9-13 15-23 15s-19-6-23-15L28 20z"
+        fill="#00D647"
+      />
+      <path
+        d="M74 20h38l38 90 38-90h38l-54 122c-5 11-13 17-22 17s-17-6-22-17L74 20z"
+        fill="#00B336"
+        opacity="0.9"
+      />
+      {/* Top Accent Nodes */}
+      <circle cx="49" cy="30" r="10" fill="#54FF8A" />
+      <circle cx="207" cy="30" r="10" fill="#54FF8A" />
+    </g>
+  </svg>
+);
+
+// 14. Nutanix (Enterprise Cloud & AHV Hyperconverged Infrastructure)
+export const NutanixIcon: React.FC<IconProps> = ({ className = 'w-10 h-10', size }) => (
+  <svg
+    viewBox="0 0 256 256"
+    className={className}
+    style={size ? { width: size, height: size } : undefined}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="256" height="256" rx="36" fill="#0A182E" />
+    <g transform="translate(42, 46) scale(0.67)">
+      {/* Nutanix Bold Stylized N Monogram */}
+      <path
+        d="M34 16c-10 0-18 8-18 18v192c0 10 8 18 18 18h28c10 0 18-8 18-18V106l106 132c6 8 16 12 26 12h28c10 0 18-8 18-18V34c0-10-8-18-18-18h-28c-10 0-18 8-18 18v138L66 22c-6-4-13-6-20-6H34z"
+        fill="#024DA1"
+      />
+      <path
+        d="M52 38h16l122 152v38h-16L52 76V38z"
+        fill="#0072CE"
+      />
+      <circle cx="218" cy="46" r="12" fill="#78BE20" />
+      <circle cx="42" cy="214" r="12" fill="#00A3E0" />
+    </g>
+  </svg>
+);
+
+// 15. Microsoft Hyper-V
+export const HyperVIcon: React.FC<IconProps> = ({ className = 'w-10 h-10', size }) => (
+  <svg
+    viewBox="0 0 256 256"
+    className={className}
+    style={size ? { width: size, height: size } : undefined}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="256" height="256" rx="36" fill="#08182B" />
+    <g transform="translate(42, 44) scale(0.67)">
+      {/* Microsoft Modern Virtualization / Hyper-V Cluster Cubes */}
+      {/* Top Left Node */}
+      <rect x="20" y="20" width="96" height="96" rx="14" fill="#0078D7" />
+      <path d="M42 42h52v52H42z" fill="#00BCF2" opacity="0.6" />
+      <circle cx="68" cy="68" r="10" fill="#FFFFFF" />
+
+      {/* Top Right Node */}
+      <rect x="140" y="20" width="96" height="96" rx="14" fill="#00A4EF" />
+      <path d="M162 42h52v52h-52z" fill="#29C8FF" opacity="0.6" />
+      <circle cx="188" cy="68" r="10" fill="#FFFFFF" />
+
+      {/* Bottom Left Node */}
+      <rect x="20" y="140" width="96" height="96" rx="14" fill="#005A9E" />
+      <path d="M42 162h52v52H42z" fill="#0078D7" opacity="0.6" />
+      <circle cx="68" cy="188" r="10" fill="#FFFFFF" />
+
+      {/* Bottom Right Node (Hyper-V VM container symbol) */}
+      <rect x="140" y="140" width="96" height="96" rx="14" fill="#0078D7" />
+      <path d="M162 162h52v52h-52z" fill="#00A4EF" opacity="0.8" />
+      <path d="M172 188h32M188 172v32" stroke="#FFFFFF" strokeWidth="6" strokeLinecap="round" />
+    </g>
+  </svg>
+);
+

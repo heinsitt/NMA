@@ -12,6 +12,9 @@ import {
   DockerIcon,
   TerraformIcon,
   GrafanaIcon,
+  VeeamIcon,
+  NutanixIcon,
+  HyperVIcon,
 } from './TechIcons';
 import { MotionReveal } from './MotionReveal';
 
@@ -58,6 +61,46 @@ const PRIMARY_TOOLS: ToolItem[] = [
     accentBg: 'rgba(229, 112, 0, 0.08)',
   },
   {
+    id: 'vmware',
+    name: 'VMware',
+    category: 'Enterprise Virtualization',
+    tag: 'ESXi · vCenter · vSwitch',
+    description: 'Bare-metal ESXi hypervisor engineering, vCenter clustering, distributed virtual switches, and snapshot retention.',
+    icon: VmwareIcon,
+    color: '#0284C7',
+    accentBg: 'rgba(2, 132, 199, 0.08)',
+  },
+  {
+    id: 'hyper-v',
+    name: 'Microsoft Hyper-V',
+    category: 'Enterprise Hypervisor',
+    tag: 'Failover Clustering · CSV · VHDX',
+    description: 'Hardware-assisted Type-1 hypervisor virtualization, Windows Server Failover Clustering, Cluster Shared Volumes (CSV), Hyper-V Replica, and virtual switch trunking.',
+    icon: HyperVIcon,
+    color: '#00A4EF',
+    accentBg: 'rgba(0, 164, 239, 0.08)',
+  },
+  {
+    id: 'nutanix',
+    name: 'Nutanix Cloud Platform',
+    category: 'Hyperconverged Infrastructure',
+    tag: 'AHV Hypervisor · Prism Central · AOS',
+    description: 'Turnkey hyperconverged infrastructure clustering, Acropolis Operating System (AOS), AHV virtualization management, and software-defined distributed storage fabric.',
+    icon: NutanixIcon,
+    color: '#024DA1',
+    accentBg: 'rgba(2, 77, 161, 0.08)',
+  },
+  {
+    id: 'veeam',
+    name: 'Veeam Backup & Replication',
+    category: 'Enterprise Backup & DR',
+    tag: 'Instant VM Recovery · Immutability · DR',
+    description: 'Enterprise backup repository management, instant virtual machine recovery, immutable S3 object-lock backups, synthetic fulls, and automated disaster recovery failover plans.',
+    icon: VeeamIcon,
+    color: '#00D647',
+    accentBg: 'rgba(0, 214, 71, 0.08)',
+  },
+  {
     id: 'datadog',
     name: 'Datadog',
     category: 'APM & Cloud Observability',
@@ -67,6 +110,9 @@ const PRIMARY_TOOLS: ToolItem[] = [
     color: '#7C3AED',
     accentBg: 'rgba(124, 58, 237, 0.08)',
   },
+];
+
+const COMPLEMENTARY_TOOLS: ToolItem[] = [
   {
     id: 'rockylinux',
     name: 'Rocky Linux',
@@ -97,19 +143,6 @@ const PRIMARY_TOOLS: ToolItem[] = [
     color: '#EF4444',
     accentBg: 'rgba(239, 68, 68, 0.08)',
   },
-  {
-    id: 'vmware',
-    name: 'VMware',
-    category: 'Enterprise Virtualization',
-    tag: 'ESXi · vCenter · vSwitch',
-    description: 'Bare-metal ESXi hypervisor engineering, vCenter clustering, distributed virtual switches, and snapshot retention.',
-    icon: VmwareIcon,
-    color: '#0284C7',
-    accentBg: 'rgba(2, 132, 199, 0.08)',
-  },
-];
-
-const COMPLEMENTARY_TOOLS: ToolItem[] = [
   {
     id: 'cisco',
     name: 'Cisco Networking',
