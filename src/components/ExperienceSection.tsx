@@ -14,7 +14,7 @@ export const ExperienceSection: React.FC = () => {
           <div>
             <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
               <span className="text-neutral-600">|</span>
-              <span className="text-white font-medium">[ 04 / 05 ]</span>
+              <span className="text-white font-medium">[ 05 / 06 ]</span>
               <span className="text-neutral-600">·</span>
               <span className="text-cyan-400">PRODUCTION WORK EXPERIENCE</span>
             </div>

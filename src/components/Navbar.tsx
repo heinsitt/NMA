@@ -10,7 +10,7 @@ export const Navbar: React.FC = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sectionIds = ['contact', 'experience', 'education', 'tools', 'about', 'top'];
+      const sectionIds = ['contact', 'experience', 'projects', 'education', 'tools', 'about', 'top'];
       for (const id of sectionIds) {
         const el = document.getElementById(id);
         if (el) {
@@ -32,8 +32,9 @@ export const Navbar: React.FC = () => {
     { id: 'about', label: 'ABOUT', num: '01' },
     { id: 'tools', label: 'TECH STACK', num: '02' },
     { id: 'education', label: 'EDUCATION & CERTS', num: '03' },
-    { id: 'experience', label: 'EXPERIENCE', num: '04' },
-    { id: 'contact', label: 'CONTACT', num: '05' },
+    { id: 'projects', label: 'PROJECTS', num: '04' },
+    { id: 'experience', label: 'EXPERIENCE', num: '05' },
+    { id: 'contact', label: 'CONTACT', num: '06' },
   ];
 
   return (

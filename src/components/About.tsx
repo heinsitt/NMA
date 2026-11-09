@@ -9,7 +9,7 @@ export const About: React.FC = () => {
           {/* Section Kicker */}
           <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
             <span className="text-neutral-600">|</span>
-            <span className="text-white font-medium">[ 01 / 05 ]</span>
+            <span className="text-white font-medium">[ 01 / 06 ]</span>
             <span className="text-neutral-600">·</span>
             <span>ABOUT</span>
           </div>

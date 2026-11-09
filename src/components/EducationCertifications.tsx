@@ -323,7 +323,7 @@ export const EducationCertifications: React.FC = () => {
             <div>
               <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-1">
                 <span className="text-neutral-600">|</span>
-                <span className="text-white font-medium">[ 03 / 05 ]</span>
+                <span className="text-white font-medium">[ 03 / 06 ]</span>
                 <span className="text-neutral-600">·</span>
                 <span className="text-cyan-400">ACCREDITATIONS & CERTIFICATIONS</span>
               </div>

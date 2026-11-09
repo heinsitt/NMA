@@ -6,6 +6,7 @@ import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { TechStackTools } from './components/TechStackTools';
 import { EducationCertifications } from './components/EducationCertifications';
+import { ProjectsSection } from './components/ProjectsSection';
 import { ExperienceSection } from './components/ExperienceSection';
 import { ContactSection } from './components/ContactSection';
 
@@ -33,10 +34,13 @@ export const App: React.FC = () => {
         {/* 03: Education & Certifications Section (Scroll-driven pinned horizontal slide) */}
         <EducationCertifications />
 
-        {/* 04: Experience & NOC Operations Section */}
+        {/* 04: Cloud Architecture & Lab Projects Section */}
+        <ProjectsSection />
+
+        {/* 05: Experience & NOC Operations Section */}
         <ExperienceSection />
 
-        {/* 05: Contact & Dispatch Section */}
+        {/* 06: Contact & Dispatch Section */}
         <ContactSection />
       </main>
 

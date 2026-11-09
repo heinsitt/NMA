@@ -26,7 +26,7 @@ export const ContactSection: React.FC = () => {
         <MotionReveal className="mb-16">
           <div className="flex items-center gap-2.5 font-mono text-[11px] sm:text-xs tracking-wider text-neutral-400 uppercase mb-4">
             <span className="text-neutral-600">|</span>
-            <span className="text-white font-medium">[ 05 / 05 ]</span>
+            <span className="text-white font-medium">[ 06 / 06 ]</span>
             <span className="text-neutral-600">·</span>
             <span className="text-cyan-400">CONNECT & COLLABORATE</span>
           </div>
