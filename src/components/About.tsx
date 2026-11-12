@@ -29,7 +29,7 @@ export const About: React.FC = () => {
             </p>
 
             <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-              My expertise covers enterprise system administration, cloud infrastructure, networking (Cisco, MikroTik), Active Directory, VPNs, and automated monitoring (Zabbix, Prometheus, Grafana). Previously <span className="text-white font-medium">NOC Engineer at WaveMoney</span>, managing 24/7 mission-critical fintech network health checks, proactive incident response, and SLA availability.
+              My expertise covers enterprise system administration, cloud infrastructure, networking (Cisco, MikroTik), Active Directory, VPNs, and automated monitoring (Zabbix, Prometheus, Grafana). Previously <span className="text-white font-medium">NOC Engineer at BIM Group of Companies (deployed on-site at WaveMoney)</span>, managing 24/7 mission-critical fintech network health checks, proactive incident response, and SLA availability.
             </p>
 
             <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
