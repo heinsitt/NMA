@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Terminal, GitBranch, FolderGit2, Cpu, Clock, Layers, Sparkles, AlertCircle } from 'lucide-react';
 import { MotionReveal } from './MotionReveal';
+import { TiltCard } from './TiltCard';
 
 interface UpcomingProjectPlaceholder {
   id: string;
@@ -185,56 +186,58 @@ export const ProjectsSection: React.FC = () => {
         {/* Forthcoming Project Preview Placeholders (Cards ready for data) */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           {UPCOMING_PROJECTS.map((project, index) => (
-            <MotionReveal key={project.id} delay={0.15 + index * 0.08}>
-              <div className="border border-white/10 bg-[#080d14]/80 backdrop-blur-md p-6 flex flex-col justify-between h-full relative group hover:border-cyan-500/40 hover:bg-[#0c131e] transition-all duration-300 cross-corner">
-                {/* Glowing Top Accent */}
-                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent group-hover:via-cyan-400 transition-all" />
+            <MotionReveal key={project.id} delay={0.15 + index * 0.08} className="h-full">
+              <TiltCard maxTilt={5} glowColor="rgba(34, 211, 238, 0.09)">
+                <div className="border border-white/10 bg-[#080d14]/80 backdrop-blur-md p-6 flex flex-col justify-between h-full relative group hover:border-cyan-500/40 hover:bg-[#0c131e] transition-all duration-300 cross-corner">
+                  {/* Glowing Top Accent */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-500/40 to-transparent group-hover:via-cyan-400 transition-all" />
 
-                <div>
-                  {/* Category & Status Badge */}
-                  <div className="flex items-center justify-between gap-2 mb-4 font-mono text-[10px] tracking-wider uppercase">
-                    <span className="text-cyan-400 font-semibold">{project.category}</span>
-                    <span className="px-2 py-0.5 border border-amber-500/30 bg-amber-950/20 text-amber-300 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                      COMING SOON
-                    </span>
-                  </div>
-
-                  {/* Title */}
-                  <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors mb-3">
-                    {project.title}
-                  </h3>
-
-                  {/* Description */}
-                  <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
-                    {project.description}
-                  </p>
-                </div>
-
-                {/* Footer: Tech Stack & Spec */}
-                <div className="pt-4 border-t border-white/10 space-y-3 font-mono">
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.techStack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="px-2 py-0.5 text-[10px] bg-white/5 border border-white/10 text-neutral-300 group-hover:border-cyan-500/20"
-                      >
-                        {tech}
+                  <div>
+                    {/* Category & Status Badge */}
+                    <div className="flex items-center justify-between gap-2 mb-4 font-mono text-[10px] tracking-wider uppercase">
+                      <span className="text-cyan-400 font-semibold">{project.category}</span>
+                      <span className="px-2 py-0.5 border border-amber-500/30 bg-amber-950/20 text-amber-300 flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                        COMING SOON
                       </span>
-                    ))}
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight group-hover:text-cyan-300 transition-colors mb-3">
+                      {project.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed mb-6 font-sans">
+                      {project.description}
+                    </p>
                   </div>
 
-                  <div className="flex items-center justify-between text-[11px] text-neutral-500 pt-1">
-                    <span className="flex items-center gap-1.5">
-                      <FolderGit2 size={12} className="text-neutral-400" />
-                      <span>{project.spec}</span>
-                    </span>
-                    <span className="text-cyan-400/80 text-[10px] uppercase tracking-wider">
-                      UPLOADING
-                    </span>
+                  {/* Footer: Tech Stack & Spec */}
+                  <div className="pt-4 border-t border-white/10 space-y-3 font-mono">
+                    <div className="flex flex-wrap gap-1.5">
+                      {project.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2 py-0.5 text-[10px] bg-white/5 border border-white/10 text-neutral-300 group-hover:border-cyan-500/20"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between text-[11px] text-neutral-500 pt-1">
+                      <span className="flex items-center gap-1.5">
+                        <FolderGit2 size={12} className="text-neutral-400" />
+                        <span>{project.spec}</span>
+                      </span>
+                      <span className="text-cyan-400/80 text-[10px] uppercase tracking-wider">
+                        UPLOADING
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </TiltCard>
             </MotionReveal>
           ))}
         </div>

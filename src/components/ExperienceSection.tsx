@@ -1,6 +1,7 @@
 import React from 'react';
 import { Server, ShieldCheck, Radio, CheckCircle2, Building2, ArrowUpRight } from 'lucide-react';
 import { MotionReveal } from './MotionReveal';
+import { TiltCard } from './TiltCard';
 
 export const ExperienceSection: React.FC = () => {
   return (
@@ -43,8 +44,9 @@ export const ExperienceSection: React.FC = () => {
         {/* Experience Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {/* Card 1: System Engineer (Current Role) — BIM Group of Companies */}
-          <MotionReveal delay={0.1}>
-            <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-cyan-400/50 transition-all duration-300 h-full">
+          <MotionReveal delay={0.1} className="h-full">
+            <TiltCard maxTilt={3.5} glowColor="rgba(34, 211, 238, 0.08)">
+              <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-cyan-400/50 transition-all duration-300 h-full">
               {/* Top Accent Line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent group-hover:via-cyan-400 transition-all" />
 
@@ -120,12 +122,14 @@ export const ExperienceSection: React.FC = () => {
                 </div>
                 <span className="text-neutral-500 uppercase tracking-wider">YANGON, MYANMAR</span>
               </div>
-            </div>
+              </div>
+            </TiltCard>
           </MotionReveal>
 
           {/* Card 2: NOC Engineer (Previous Role) — BIM Group of Companies (Deployed to WaveMoney Site) */}
-          <MotionReveal delay={0.2}>
-            <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-amber-400/50 transition-all duration-300 h-full">
+          <MotionReveal delay={0.2} className="h-full">
+            <TiltCard maxTilt={3.5} glowColor="rgba(245, 158, 11, 0.08)">
+              <div className="border border-white/15 bg-[#0a0f16]/90 backdrop-blur-md p-6 sm:p-8 flex flex-col justify-between cross-corner shadow-2xl relative group hover:border-amber-400/50 transition-all duration-300 h-full">
               {/* Top Accent Line */}
               <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-amber-400/50 to-transparent group-hover:via-amber-400 transition-all" />
 
@@ -202,7 +206,8 @@ export const ExperienceSection: React.FC = () => {
                 </div>
                 <span className="text-neutral-500 uppercase tracking-wider">WAVEMONEY SITE</span>
               </div>
-            </div>
+              </div>
+            </TiltCard>
           </MotionReveal>
         </div>
       </div>
