@@ -1,20 +1,87 @@
-import React, { useState } from 'react';
-import { Mail, Check, Copy, ArrowUpRight, MapPin, Globe, ShieldCheck } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Mail, Check, Copy, ArrowUpRight, MapPin, ShieldCheck } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { MotionReveal } from './MotionReveal';
 import { MatrixRainCanvas } from './MatrixRainCanvas';
 
 export const ContactSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  const timeoutRef = useRef<number | null>(null);
   const emailAddress = 'naingmoeaung51@gmail.com';
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(emailAddress);
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleCopyEmail = async () => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(emailAddress);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = emailAddress;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-9999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+    } catch {
+      const textArea = document.createElement('textarea');
+      textArea.value = emailAddress;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-9999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+    }
+
     setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    if (timeoutRef.current) {
+      window.clearTimeout(timeoutRef.current);
+    }
+    timeoutRef.current = window.setTimeout(() => {
+      setCopied(false);
+    }, 2500);
   };
 
   return (
     <section id="contact" className="relative py-24 sm:py-32 bg-[#070b10] overflow-hidden">
+      {/* Temporary 'Copied!' Toast Notification */}
+      <AnimatePresence>
+        {copied && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.96 }}
+            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+            role="status"
+            aria-live="polite"
+            className="fixed bottom-6 right-6 z-50 border border-emerald-400/40 bg-[#080e16]/95 backdrop-blur-md px-4 py-3 shadow-[0_12px_40px_rgba(0,0,0,0.75)] flex items-center gap-3 cross-corner pointer-events-none"
+          >
+            <div className="w-7 h-7 rounded-sm bg-emerald-500/15 border border-emerald-400/40 flex items-center justify-center text-emerald-400 flex-shrink-0">
+              <Check size={15} />
+            </div>
+            <div className="font-mono">
+              <div className="text-xs font-bold text-emerald-300 tracking-wider">
+                Copied!
+              </div>
+              <div className="text-[11px] text-neutral-300">
+                {emailAddress} copied to clipboard
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Background Matrix Rain Digital Stream Animation */}
       <MatrixRainCanvas opacity={0.3} />
 
@@ -48,17 +115,28 @@ export const ContactSection: React.FC = () => {
             <div className="border border-white/15 bg-black/80 backdrop-blur-md p-6 sm:p-10 cross-corner shadow-2xl space-y-8">
             <div>
               <span className="font-mono text-xs text-neutral-500 uppercase tracking-widest block mb-2">
-                PRIMARY EMAIL INBOX
+                PRIMARY EMAIL INBOX · CLICK TO COPY
               </span>
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-white/10 bg-white/5">
-                <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-md bg-white/10 flex items-center justify-center text-white flex-shrink-0">
-                    <Mail size={18} />
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 border border-white/10 bg-white/5 hover:border-cyan-400/30 transition-colors">
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  title="Click to copy email address"
+                  aria-label={`Copy ${emailAddress} to clipboard`}
+                  className="flex items-center gap-3 min-w-0 text-left group/email cursor-pointer focus:outline-none"
+                >
+                  <div className="w-10 h-10 rounded-md bg-white/10 group-hover/email:bg-cyan-500/20 group-hover/email:text-cyan-300 flex items-center justify-center text-white flex-shrink-0 transition-colors">
+                    {copied ? <Check size={18} className="text-emerald-400" /> : <Mail size={18} />}
                   </div>
-                  <span className="text-white font-mono text-sm sm:text-base font-semibold truncate">
-                    {emailAddress}
-                  </span>
-                </div>
+                  <div className="min-w-0">
+                    <span className="text-white group-hover/email:text-cyan-300 font-mono text-sm sm:text-base font-semibold truncate block transition-colors">
+                      {emailAddress}
+                    </span>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-500 group-hover/email:text-cyan-400/80 block transition-colors">
+                      {copied ? 'Copied to clipboard' : 'Click address to copy'}
+                    </span>
+                  </div>
+                </button>
 
                 <div className="flex items-center gap-2 flex-shrink-0">
                   <button
